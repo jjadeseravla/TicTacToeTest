@@ -15,9 +15,18 @@
     </style>
 
     <script type="text/javascript">
-      function startGame() {
-        document.turn = "X";
 
+      function startGame() {
+
+        for (var i = 1; i <= 9; i = i + 1) {
+          clearBox(i);
+        }
+
+        document.turn = "X";
+        if (Math.random() < 0.5) {
+          document.turn = "O";
+        }
+        document.winner = null;
         setMessage(document.turn + " gets to start ");
       }
 
@@ -26,7 +35,9 @@
       }
 
       function nextMove(square) {
-          if (square.innerText == "") {
+          if (document.winner != null) {
+            setMessage(document.winner + " already won game");
+          } else if (square.innerText == "") {
           square.innerText = document.turn;
           switchTurn();
         } else {
@@ -35,13 +46,16 @@
       }
 
       function switchTurn() {
-        if (document.turn == "X") {
+        if (checkForWinner(document.turn)) {
+          setMessage("Congratulations, " + document.turn + "! You win!");
+          document.winner = document.turn;
+        } else if (document.turn == "X") {
           document.turn = "O";
+          setMessage("It's " + document.turn + "'s turn!")
         } else {
           document.turn = "X";
+          setMessage("It's " + document.turn + "'s turn!")
         }
-
-        setMessage("It's " + document.turn + " turn!")
       }
 
       function checkForWinner(move) {
@@ -68,8 +82,12 @@
         return result;
       }
 
-      function getBox(number){
+      function getBox(number) {
         document.getElementById("s" + number).innerText;
+      }
+
+      function clearBox(number) {
+        document.getElementById("s" + number).innerText = "";
       }
 
     </script>
@@ -95,5 +113,6 @@
         <td id="s9" class="Square" onClick="nextMove(this);"></td>
       </tr>
     </table>
+    <a href="javascript:startGame();">Start Over</a>
   </body>
 </html>
