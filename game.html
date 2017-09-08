@@ -13,10 +13,24 @@
         color: black;
       }
     </style>
+
+    <script type="text/javascript">
+      function startGame() {
+        document.turn = "X";
+
+        setMessage(document.turn + " gets to start ");
+      }
+
+      function setMessage(msg) {
+        document.getElementById("message").innerText = msg;
+      }
+
+    </script>
   </head>
 
-  <body>
+  <body onload="startGame();">
     <h1>Welcome to my Tic Tac Toe Game!</h1>
+    <div id="message">messages will go here</div>
     <table border="1">
       <tr>
         <td class="Square">X</td>
