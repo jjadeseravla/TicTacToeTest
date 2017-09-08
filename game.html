@@ -26,8 +26,12 @@
       }
 
       function nextMove(square) {
-        square.innerText = document.turn;
-        switchTurn();
+          if (square.innerText == "") {
+          square.innerText = document.turn;
+          switchTurn();
+        } else {
+          setMessage("That square is already used");
+        }
       }
 
       function switchTurn() {
@@ -40,6 +44,34 @@
         setMessage("It's " + document.turn + " turn!")
       }
 
+      function checkForWinner(move) {
+        var resullt = false;
+        if (checkRow(1, 2, 3, move) ||
+            checkRow(4, 5, 6, move) ||
+            checkRow(7, 8, 9, move) ||
+            checkRow(1, 4, 7, move) ||
+            checkRow(2, 5, 8, move) ||
+            checkRow(3, 6, 9, move) ||
+            checkRow(1, 5, 9, move) ||
+            checkRow(3, 5, 7, move)) {
+
+              result = true;
+            }
+            return result;
+      }
+
+      function checkRow(a, b, c, move) {
+        var result = false;
+        if (getBox(a)) == move && getBox(b) == move && getBox(c) == move) {
+          result = true;
+        }
+        return result;
+      }
+
+      function getBox(number){
+        document.getElementById("s" + number).innerText;
+      }
+
     </script>
   </head>
 
@@ -48,19 +80,19 @@
     <div id="message">messages will go here</div>
     <table border="1">
       <tr>
-        <td class="Square" onClick="nextMove(this);"></td>
-        <td class="Square" onClick="nextMove(this);"></td>
-        <td class="Square" onClick="nextMove(this);"></td>
+        <td id="s1" class="Square" onClick="nextMove(this);"></td>
+        <td id="s2" class="Square" onClick="nextMove(this);"></td>
+        <td id="s3" class="Square" onClick="nextMove(this);"></td>
       </tr>
       <tr>
-        <td class="Square" onClick="nextMove(this);"></td>
-        <td class="Square" onClick="nextMove(this);"></td>
-        <td class="Square" onClick="nextMove(this);"></td>
+        <td id="s4" class="Square" onClick="nextMove(this);"></td>
+        <td id="s5" class="Square" onClick="nextMove(this);"></td>
+        <td id="s6" class="Square" onClick="nextMove(this);"></td>
       </tr>
       <tr>
-        <td class="Square" onClick="nextMove(this);"></td>
-        <td class="Square" onClick="nextMove(this);"></td>
-        <td class="Square" onClick="nextMove(this);"></td>
+        <td id="s7" class="Square" onClick="nextMove(this);"></td>
+        <td id="s8" class="Square" onClick="nextMove(this);"></td>
+        <td id="s9" class="Square" onClick="nextMove(this);"></td>
       </tr>
     </table>
   </body>
